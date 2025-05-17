@@ -1,0 +1,309 @@
+**users**
+
+{
+_id: ObjectId,
+firstName: String,
+lastName: String,
+email: String,
+password: String, // Hachée
+profilePicture: String, // URL
+headline: String,
+company: String,
+position: String,
+location: String,
+linkedInId: String, // Pour les utilisateurs connectés via LinkedIn
+linkedInAccessToken: String,
+linkedInRefreshToken: String,
+linkedInTokenExpiry: Date,
+profileScore: Number, // Score d'optimisation du profil
+createdAt: Date,
+updatedAt: Date,
+lastLogin: Date,
+isActive: Boolean,
+role: String, // "user", "admin", etc.
+settings: {
+notifications: {
+email: Boolean,
+app: Boolean,
+connectionRequests: Boolean,
+messages: Boolean,
+opportunities: Boolean,
+automationAlerts: Boolean
+},
+privacy: {
+shareData: Boolean,
+allowAnalytics: Boolean
+},
+theme: String // "light", "dark", "system"
+}
+}
+
+**connections**
+
+{
+_id: ObjectId,
+userId: ObjectId, // Référence à l'utilisateur
+connectionId: String, // ID LinkedIn de la connexion
+firstName: String,
+lastName: String,
+profilePicture: String,
+headline: String,
+company: String,
+position: String,
+location: String,
+connectionDegree: Number, // 1, 2, 3
+dateConnected: Date,
+lastInteraction: Date,
+tags: [String],
+notes: String,
+status: String, // "active", "pending", "removed"
+source: String // Comment cette connexion a été établie
+}
+
+messages
+
+{
+_id: ObjectId,
+userId: ObjectId, // Utilisateur qui a envoyé/reçu le message
+connectionId: ObjectId, // Référence à la connexion
+direction: String, // "sent" ou "received"
+content: String,
+templateId: ObjectId, // Si le message est basé sur un modèle
+sentAt: Date,
+deliveredAt: Date,
+readAt: Date,
+status: String, // "draft", "sent", "delivered", "read", "failed"
+responseReceived: Boolean,
+responseContent: String,
+responseDate: Date,
+metadata: {
+automationId: ObjectId, // Si envoyé via une automatisation
+campaignId: ObjectId // Si fait partie d'une campagne
+}
+}
+
+**messageTemplates**
+
+{
+_id: ObjectId,
+userId: ObjectId,
+name: String,
+category: String, // "connection", "followup", "application", etc.
+content: String,
+variables: [String], // Variables à remplacer comme "{prénom}", "{entreprise}"
+tone: String, // "formal", "casual", "professional", etc.
+purpose: String, // "networking", "job", "collaboration", etc.
+successRate: Number, // Taux de réponse
+timesUsed: Number,
+createdAt: Date,
+updatedAt: Date,
+isDefault: Boolean
+}
+
+**opportunities**
+
+{
+_id: ObjectId,
+userId: ObjectId,
+contactId: String, // ID LinkedIn du contact
+firstName: String,
+lastName: String,
+headline: String,
+profilePicture: String,
+company: String,
+position: String,
+location: String,
+connectionDegree: Number,
+mutualConnections: Number,
+relevanceScore: Number,
+relevanceFactors: [
+{
+type: String, // "industry_match", "mutual_connections", etc.
+description: String,
+weight: Number
+}
+],
+lastActivity: Date,
+tags: [String],
+source: String, // "industry_match", "mutual_connections", etc.
+detectedAt: Date,
+status: String, // "new", "viewed", "contacted", "connected", "ignored"
+userNotes: String,
+actions: [
+{
+type: String, // "view_profile", "send_message", "connect", etc.
+date: Date,
+result: String
+}
+]
+}
+
+**automations**
+
+{
+_id: ObjectId,
+userId: ObjectId,
+name: String,
+description: String,
+type: String, // "messages", "connections", "engagement", "content", "monitoring"
+status: String, // "active", "paused", "scheduled"
+target: {
+type: String, // "new-connections", "all-network", "specific-list", etc.
+value: String,
+filters: Object // Filtres spécifiques
+},
+content: String, // Contenu du message ou de la publication
+schedule: {
+frequency: String, // "daily", "weekly", "biweekly", "monthly", "custom"
+days: [Number], // 0-6 pour dimanche-samedi
+time: String, // Format "HH:MM"
+startDate: Date,
+endDate: Date,
+maxActions: Number
+},
+createdAt: Date,
+updatedAt: Date,
+lastRun: Date,
+nextRun: Date,
+stats: {
+totalRuns: Number,
+successCount: Number,
+failureCount: Number,
+lastResults: Object
+}
+}
+
+**profileOptimizations**
+
+{
+_id: ObjectId,
+userId: ObjectId,
+category: String, // "headline", "summary", "experience", "skills", etc.
+currentContent: String,
+suggestedContent: String,
+improvementReason: String,
+status: String, // "pending", "applied", "rejected"
+score: Number, // Impact sur le score global
+createdAt: Date,
+appliedAt: Date
+}
+
+**analytics**
+
+{
+_id: ObjectId,
+userId: ObjectId,
+date: Date,
+period: String, // "daily", "weekly", "monthly"
+metrics: {
+profileViews: Number,
+connectionGrowth: Number,
+messagesSent: Number,
+messagesReceived: Number,
+responseRate: Number,
+engagementRate: Number,
+automationActions: Number,
+timeSpent: Number, // En minutes
+opportunitiesDetected: Number,
+opportunitiesActioned: Number
+},
+sources: {
+directSearch: Number,
+recommendations: Number,
+content: Number,
+groups: Number,
+events: Number
+}
+}
+
+**campaigns**
+
+{
+_id: ObjectId,
+userId: ObjectId,
+name: String,
+description: String,
+goal: String,
+targetAudience: {
+industries: [String],
+positions: [String],
+locations: [String],
+connectionDegrees: [Number]
+},
+messageTemplateId: ObjectId,
+status: String, // "draft", "active", "paused", "completed"
+startDate: Date,
+endDate: Date,
+stats: {
+totalProspects: Number,
+messagesDelivered: Number,
+responses: Number,
+connections: Number,
+conversionRate: Number
+},
+createdAt: Date,
+updatedAt: Date
+}
+
+**notifications**
+
+{
+_id: ObjectId,
+userId: ObjectId,
+type: String, // "connection_request", "message", "opportunity", "automation", etc.
+title: String,
+content: String,
+relatedId: ObjectId, // ID de l'objet lié (message, connexion, etc.)
+isRead: Boolean,
+createdAt: Date,
+readAt: Date,
+priority: String // "high", "medium", "low"
+}
+
+offres d'emploi
+
+{
+_id: ObjectId,
+title: String,
+company: String,
+companyLogo: String,
+companyWebsite: String,
+companyDescription: String,
+location: String,
+type: String,
+salary: String,
+description: String,
+responsibilities: [String],
+requirements: [String],
+niceToHave: [String],
+benefits: [String],
+experienceLevel: String,
+education: String,
+languages: [String],
+remote: Boolean,
+urgent: Boolean,
+postedAt: Date,
+startDate: String,
+applicationDeadline: Date,
+views: Number,
+applications: Number,
+createdAt: Date,
+updatedAt: Date,
+status: String // "active", "closed", "draft"
+}
+
+**candidatures**
+
+{
+_id: ObjectId,
+userId: ObjectId, // Référence à l'utilisateur
+jobId: ObjectId, // Référence à l'offre d'emploi
+coverLetter: String,
+resumeUrl: String, // URL du CV stocké
+useLinkedInProfile: Boolean,
+status: String, // "pending", "reviewed", "interviewed", "accepted", "rejected"
+notes: String, // Notes internes sur la candidature
+createdAt: Date,
+updatedAt: Date,
+lastStatusChange: Date
+}
