@@ -1,0 +1,15 @@
+{
+  "user": {
+    "name": "Jean Dupont",
+    "title": "Développeur Full Stack",
+    "experience": "5 ans d'expérience en développement web, spécialisé dans les technologies JavaScript (React, Node.js) et Python (Django, Flask). J'ai travaillé sur des projets e-commerce à forte charge et des applications SaaS.",
+    "skills": ["JavaScript", "React", "Node.js", "Python", "Django", "Flask", "SQL", "NoSQL", "AWS", "Docker"],
+    "goals": "Je souhaite rejoindre une entreprise innovante où je pourrai contribuer à des projets à fort impact tout en développant mes compétences en architecture logicielle et en IA."
+  },
+  "job": {
+    "title": "Lead Développeur Full Stack",
+    "company": "TechInnovation",
+    "description": "Nous recherchons un Lead Développeur Full Stack pour diriger notre équipe de développement web. Vous serez responsable de la conception et du développement de nouvelles fonctionnalités pour notre plateforme SaaS, ainsi que de l'encadrement technique de l'équipe.",
+    "requirements": ["5+ ans d'expérience en développement web", "Maîtrise de JavaScript et Python", "Expérience avec React et Node.js", "Connaissance des architectures cloud", "Capacité à diriger une équipe technique", "Bonne communication"]
+  }
+}

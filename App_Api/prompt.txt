@@ -1,0 +1,62 @@
+Tu es un développeur senior expert en Python, IA, traitement du langage naturel, APIs web et déploiement rapide pour hackathon.
+
+Je te demande de générer **tout le code Python nécessaire** pour créer une **API REST** qui génère une lettre de motivation automatiquement à partir du profil d’un candidat et d’une offre d’emploi, en utilisant un **LLM (comme OpenAI GPT-4 ou Claude/Mistral via AWS Bedrock)**.
+
+---
+
+### 🔧 Spécifications Fonctionnelles
+
+1. **Entrées attendues (via une requête POST)** :
+   - Un objet JSON avec deux clés :
+     - `user`: un dictionnaire contenant :
+       - `name`: nom complet
+       - `title`: poste actuel
+       - `experience`: résumé de l’expérience professionnelle
+       - `skills`: liste de compétences
+       - `goals`: objectifs professionnels
+     - `job`: un dictionnaire contenant :
+       - `title`: titre du poste
+       - `company`: nom de l’entreprise
+       - `description`: description du poste
+       - `requirements`: liste de compétences ou qualités recherchées
+
+2. **Traitement IA** :
+   - Générer un prompt structuré et professionnel pour un LLM
+   - Interroger le LLM pour générer une lettre de motivation impactante
+   - Le ton doit être professionnel, fluide et adapté au poste
+   - Ne jamais inventer d’informations non fournies
+
+3. **Sortie attendue** :
+   - Une réponse JSON contenant un seul champ : `"letter"` avec la lettre générée en texte brut
+
+---
+
+### 🔩 Spécifications Techniques
+
+- Utiliser **FastAPI** pour exposer une API RESTful
+- Ajouter une route `/generate` (méthode POST) qui prend en entrée le JSON ci-dessus
+- Ajouter une route `/health` (méthode GET) pour test de disponibilité
+- Le code doit inclure un **exemple d’appel API** avec `curl` ou Python `requests`
+- Prévoir un **modèle interchangeable** : commencer par OpenAI, mais indiquer comment le remplacer par AWS Bedrock si besoin
+- Ajouter des **commentaires clairs** pour chaque étape
+
+---
+
+### 📦 Bonus souhaité
+
+- Ajouter un fichier `requirements.txt` pour l’installation des dépendances
+- Ajouter un exemple de fichier `user_input.json` que je peux tester en local
+- Penser à la portabilité (Docker non nécessaire mais code prêt à l’emploi)
+
+---
+
+### 🔐 Sécurité & Clarté
+
+- Ne stocke rien sur disque
+- Aucune dépendance inutile
+- Ne retourne pas de données sensibles
+- Le code doit fonctionner tel quel avec une clé API OpenAI
+
+---
+
+Génère **uniquement du code Python bien structuré, commenté**, sans explication autour. N’ajoute aucun texte, explication, ni résumé. Je veux pouvoir **copier-coller et faire tourner l’outil directement**.

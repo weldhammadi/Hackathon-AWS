@@ -1,0 +1,150 @@
+# LinkedBoost API - Générateur de contenu IA pour LinkedIn
+
+## Description du projet
+
+LinkedBoost API est une application backend développée en Python qui fournit des services de génération de contenu optimisé pour LinkedIn à l'aide de l'intelligence artificielle. Cette API permet de générer des lettres de motivation personnalisées et des messages de connexion adaptés au profil de l'utilisateur et aux offres d'emploi ou contacts ciblés.
+
+## Fonctionnalités principales
+
+- **Génération de lettres de motivation** : Création de lettres de motivation professionnelles adaptées au profil du candidat et à l'offre d'emploi
+- **Génération de messages de connexion** : Création de messages personnalisés pour établir un premier contact sur LinkedIn
+- **Support multi-fournisseurs d'IA** : Intégration avec AWS Bedrock (Claude 3) et OpenAI (GPT-4)
+- **API REST** : Interface simple et documentée pour l'intégration avec des applications frontend
+
+## Stack technique
+
+### Technologies principales
+
+- **FastAPI** : Framework Python moderne pour la création d'API REST avec validation automatique des données
+- **Pydantic** : Validation des données et sérialisation/désérialisation
+- **AWS Bedrock** : Service d'IA générative d'Amazon (modèle Claude 3 Sonnet)
+- **OpenAI API** : Alternative pour la génération de contenu via GPT-4
+- **Python 3.8+** : Langage de programmation principal
+- **Boto3** : SDK AWS pour Python
+
+### Architecture
+
+L'application suit une architecture modulaire avec :
+- Modèles de données (Pydantic)
+- Service LLM abstrait supportant plusieurs fournisseurs
+- Endpoints API REST
+- Middleware CORS pour l'intégration frontend
+
+### Choix techniques
+
+- **FastAPI** a été choisi pour sa performance, sa simplicité et sa documentation automatique
+- **AWS Bedrock** est utilisé comme fournisseur principal d'IA pour sa qualité de génération et son intégration AWS
+- **OpenAI** est disponible comme alternative
+- **Architecture modulaire** pour faciliter l'extension et la maintenance
+- **Validation des données** avec Pydantic pour garantir l'intégrité des entrées/sorties
+
+## Installation et configuration
+
+### Prérequis
+
+- Python 3.8 ou supérieur
+- Compte AWS avec accès à Bedrock (ou clé API OpenAI)
+- pip (gestionnaire de paquets Python)
+
+### Installation
+
+1. Cloner le dépôt :
+***bash
+git clone <url-du-repo>
+cd HACKATON_AWS
+
+2. installation des dépendances
+pip install -r requirements.txt
+
+3. Configuration des variables d'environnement
+
+AWS_ACCESS_KEY_ID=votre_access_key
+AWS_SECRET_ACCESS_KEY=votre_secret_key
+AWS_REGION=us-east-1
+OPENAI_API_KEY=votre_cle_openai  # Optionnel si vous utilisez AWS Bedrock
+
+4. Lancer l'API
+uvicorn main:app --reload --port 8000
+
+
+## Utilisation de l'API
+### Génération d'une lettre de motivation
+Endpoint : /generate
+
+Méthode : POST
+
+Corps de la requête :
+
+```
+{
+  "user": {
+    "name": "Jean Dupont",
+    "title": "Développeur Full Stack",
+    "experience": "5 ans d'expérience en 
+    développement web...",
+    "skills": ["JavaScript", "React", "Node.js", 
+    "Python"],
+    "goals": "Je souhaite rejoindre une 
+    entreprise innovante..."
+  },
+  "job": {
+    "title": "Développeur Frontend React",
+    "company": "TechVision",
+    "description": "TechVision est une entreprise 
+    innovante...",
+    "requirements": [
+      "3+ ans d'expérience en développement 
+      frontend",
+      "Maîtrise de React, TypeScript et des hooks"
+    ]
+  }
+}
+```
+### Génération d'un message de connexion
+Endpoint : /generate-connection
+
+Méthode : POST
+
+Corps de la requête :
+
+```
+{
+  "user": {
+    "name": "Jean Dupont",
+    "title": "Développeur Full Stack",
+    "experience": "5 ans d'expérience en 
+    développement web...",
+    "skills": ["JavaScript", "React", "Node.js", 
+    "Python"],
+    "goals": "Je souhaite développer mon réseau...
+    "
+  },
+  "target": {
+    "name": "Marie Martin",
+    "title": "Lead Developer",
+    "company": "AI Solutions",
+    "background": "Diplômée de l'École 
+    Polytechnique...",
+    "interests": ["Intelligence Artificielle", 
+    "Python", "Machine Learning"]
+  },
+  "common_points": ["Développement Python", 
+  "Intérêt pour l'IA"]
+}
+```
+## Intégration avec le frontend
+Cette API est conçue pour s'intégrer avec l'application frontend LinkedBoost, une application Next.js qui permet aux utilisateurs de gérer leur présence LinkedIn et d'automatiser certaines tâches comme l'envoi de messages et la génération de contenu.
+
+## Développement et contribution
+### Structure du projet
+- main.py : Point d'entrée de l'application et définition des routes
+- models/ : Modèles de données Pydantic
+- services/ : Services métier, notamment le service LLM
+- utils/ : Utilitaires divers
+### Bonnes pratiques
+- Suivre les conventions PEP 8 pour le code Python
+- Documenter les fonctions et classes avec des docstrings
+- Ajouter des tests unitaires pour les nouvelles fonctionnalités
+- Utiliser des branches Git pour les nouvelles fonctionnalités
+## Licence
+Ce projet est sous licence MIT.
