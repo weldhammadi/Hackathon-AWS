@@ -35,6 +35,14 @@ LinkedBoost est une plateforme intelligente qui utilise l'intelligence artificie
 - Statistiques détaillées sur vos interactions et votre réseau
 - Mesure de l'impact de vos actions de networking
 
+## État actuel du projet
+
+- ✅ **Génération de lettres de motivation** : Fonctionne parfaitement
+- ✅ **Génération de messages directs** : Implémentée et fonctionnelle
+- ✅ **Génération d'emails** : Système de création d'emails opérationnel
+- ⚠️ **Liaison avec les données ** : Nous n'avons pas pu finaliser la connexion entre la base de données et les données collectées. Actuellement, la génération fonctionne sur des exemples de données issues du scraping.
+- ⚠️ **Pages supplémentaires** : Certaines pages sont statiques pour le moment, en attendant la liaison complète avec la base de données.
+
 ##  Architecture technique
 
 Le projet LinkedBoost est composé de trois composants principaux :
